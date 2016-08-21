@@ -141,7 +141,10 @@ PermitRootLogin without-password
 We can also disable password authentication and allow only SSH keys, giving your server some extra security. Set the following settings to the following values. If these settings are already in the file, set them to "no" rather than add new lines.
 
 ```
-ChallengeResponseAuthentication no
+#Before
+PasswordAuthentication yes
+
+#After
 PasswordAuthentication no
 ```
 
@@ -151,8 +154,18 @@ Reload SSH
 service ssh restart
 ```
 
-Test mail service for Fail2ban
+mail service for Fail2ban
 ------------------------------
+
+### Hosts
+
+Change your hosts in `/etc/hosts`
+
+```
+127.0.0.1 localhost.localdomain localhost <yourhostname>
+```
+
+### Testing
 
 ```
 echo "Subject: test" | sendmail -v me@my-domain.com

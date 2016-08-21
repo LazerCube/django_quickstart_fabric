@@ -150,9 +150,10 @@ def stop():
     sudo("systemctl stop fail2ban")
 
 def restart():
-    sudo("systemctl restart fail2ban")
     sudo("systemctl restart gunicorn")
     sudo("systemctl restart nginx")
+    sudo('systemctl stop fail2ban')
+    sudo("systemctl start fail2ban")
 
 def manage(command=''):
     with prefix('workon %s' %(PROJECT_NAME)):
