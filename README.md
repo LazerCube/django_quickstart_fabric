@@ -162,7 +162,7 @@ mail service for Fail2ban
 Change your hosts in `/etc/hosts`
 
 ```
-127.0.0.1 localhost.localdomain localhost <yourhostname>
+127.0.0.1 <localhost.localdomain> localhost <yourhostname>
 ```
 
 ### Testing
