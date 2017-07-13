@@ -1,13 +1,12 @@
 from posixpath import join
 
-from fabric.operations import local as lrun, run
+from fabric.operations import local as lrun, run, prompt
 from fabric.api import cd, env, prefix, sudo, settings, reboot as restart_sys
 from fabric.contrib.files import append
 
 import os
 import random
 import string
-
 
 # Config for local system
 def localhost():
@@ -40,7 +39,8 @@ def upgrade_system():
     sudo('apt-get upgrade -y')
 
 def install_software():
-    sudo('apt-get install -y git nginx python-dev python-pip libpq-dev postgresql postgresql-contrib fail2ban sendmail iptables-persistent')
+    sudo('apt-get install -y git nginx python-dev libpq-dev postgresql postgresql-contrib fail2ban sendmail iptables-persistent')
+    sudo('pip install --upgrade pip')
     sudo('pip install -U virtualenvwrapper')
     append(join(HOME_DIR, '.bash_profile'), ('export WORKON_HOME={0}/.virtualenvs'.format(HOME_DIR), 'source /usr/local/bin/virtualenvwrapper.sh'))
 
@@ -138,7 +138,6 @@ def sys_reboot(reboot=False):
             restart_sys(200)
             print('::Continuing with fabric...')
 
-
 def start():
     sudo("systemctl start fail2ban")
     sudo("systemctl start gunicorn")
@@ -160,6 +159,9 @@ def manage(command=''):
         run('python {0} {1}'.format(join(BASE_DIR, 'project/manage.py'), command))
 
 def full_install(origin=ORIGIN_DIR, settings=None, secret_key=None, reboot=False):
+    if not(settings):
+        settings = prompt("When installing for the first time you must define a django config file to use.")
+        # Check if config file exists before continuing
     upgrade_system()
     install_software()
     sys_reboot(reboot)
