@@ -1,3 +1,0 @@
-Fabric==1.11.1
-fabric-virtualenv==0.3.0
-unipath==1.1
