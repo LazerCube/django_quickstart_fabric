@@ -1,0 +1,29 @@
+{% load sass_tags %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block meta-head %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Django QuickStart</title>
+        {% endblock %}
+        {% block styles-head %}
+            <!--  core CSS    -->
+            <link type="text/css" href="{% sass_src 'sass/example.scss' %}" rel="stylesheet" />
+        {% endblock %}
+        {% block fonts-head %}
+            <!--  Fonts and icons     -->
+            <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        {% endblock %}
+        {% block js-head %}
+            <!--   Core JS Files   -->
+        {% endblock %}
+    </head>
+    {% block body %}
+        <body>
+            <h1>Django Quickstart</h1>
+        </body>
+    {% endblock %}
+</html>

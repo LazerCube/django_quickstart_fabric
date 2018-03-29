@@ -7,6 +7,9 @@ BASE_DIR = os.path.sep.join(CURRENT_DIR.split(os.path.sep)[:-1])
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'vgoaax_+&_%jg&x#1+k*_bt#q4$fzo2f9f3#zyx7ci2n4w^&ab'
 
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,6 +30,20 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    os.path.join(BASE_DIR, 'static/sass'),
+    os.path.join(BASE_DIR, 'static/node_modules'),
+]
+
+SASS_PRECISION = 8
+SASS_OUTPUT_STYLE = 'compact'
 
 ROOT_URLCONF = 'config.urls'
 STATIC_TEMPLATES = (os.path.join(BASE_DIR, 'templates/'))
@@ -51,7 +68,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Password validation
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -81,7 +97,6 @@ STATIC_ROOT = (os.path.join(BASE_DIR, 'compiled_static'))
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/static/assets/media/'
 
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30 # One month
