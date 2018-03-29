@@ -9,3 +9,5 @@ projectenv/
 compiled_static/
 media/
 logs/
+
+.DS_Store
